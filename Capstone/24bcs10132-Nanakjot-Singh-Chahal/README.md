@@ -212,9 +212,9 @@ everything with real counters on a lab Linux machine.
 
 ## Screenshots
 
-Every step was run in WSL2 (Ubuntu 24.04) on my laptop, and the terminal output was saved.
-The PNGs in `screenshots/` are drawn from that saved output, one per command, and the same
-text is in `results/`.
+Real screenshots of my Windows Terminal (WSL2 Ubuntu 24.04) taken while running each
+command. They come from a separate run from the one in the results table, so the timings
+differ by a few percent. The checksums and final BBO are identical.
 
 | Step | Screenshot |
 |---|---|
@@ -228,6 +228,5 @@ text is in `results/`.
 | perf record/report A | ![](screenshots/08-A-perf-report.png) |
 | perf record/report B | ![](screenshots/09-B-perf-report.png) |
 | perf record/report C | ![](screenshots/10-C-perf-report.png) |
-| cachegrind A | ![](screenshots/11-A-cachegrind.png) |
-| cachegrind B | ![](screenshots/12-B-cachegrind.png) |
-| cachegrind C | ![](screenshots/13-C-cachegrind.png) |
+
+Cachegrind output is in `results/cachegrind_{A,B,C}.txt`.
