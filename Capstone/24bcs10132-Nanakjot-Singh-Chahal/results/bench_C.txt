@@ -1,0 +1,22 @@
+Implementation C (flat array + bitmap + open-addressing ids)
+Operations: 1000000   Runs: 5   (median reported)
+
+  run 1: total    46.07 ms | add  121.3 ns | cancel  115.9 ns | bbo   36.1 ns | depth   103.3 ns
+  run 2: total    43.57 ms | add  125.3 ns | cancel  122.5 ns | bbo   37.2 ns | depth   105.5 ns
+  run 3: total    45.06 ms | add  126.6 ns | cancel  121.7 ns | bbo   37.3 ns | depth   107.2 ns
+  run 4: total    40.92 ms | add  116.2 ns | cancel  110.5 ns | bbo   36.9 ns | depth   102.5 ns
+  run 5: total    44.01 ms | add  119.6 ns | cancel  112.3 ns | bbo   38.7 ns | depth   102.1 ns
+
+Median of 5 runs
+  Total time        : 44.01 ms
+  ns / add_order    : 121.3
+  ns / cancel_order : 115.9
+  ns / get_bbo      : 37.2
+  ns / get_bids|asks(10): 103.3
+  (per-op numbers include ~15.5 ns of steady_clock overhead)
+
+Final BBO:
+  Bid: 99.99 x 1981
+  Ask: 100.01 x 2573
+
+Checksum: 16195615379729332828

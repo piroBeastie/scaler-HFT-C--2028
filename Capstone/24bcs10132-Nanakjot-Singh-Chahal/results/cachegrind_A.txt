@@ -1,0 +1,28 @@
+Cachegrind, a high-precision tracing profiler
+Copyright (C) 2002-2017, and GNU GPL'd, by Nicholas Nethercote et al.
+Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+Command: ./bench --impl A --runs 1
+
+brk segment overflow in thread #1: can't grow to 0x4854000
+(see section Limitations in user manual)
+NOTE: further instances of this message will not be shown
+
+I refs:        1,610,906,236
+I1  misses:            2,719
+LLi misses:            2,650
+I1  miss rate:          0.00%
+LLi miss rate:          0.00%
+
+D refs:          634,544,080  (408,559,551 rd   + 225,984,529 wr)
+D1  misses:       25,952,042  ( 23,855,076 rd   +   2,096,966 wr)
+LLd misses:        2,429,547  (  1,075,524 rd   +   1,354,023 wr)
+D1  miss rate:           4.1% (        5.8%     +         0.9%  )
+LLd miss rate:           0.4% (        0.3%     +         0.6%  )
+
+LL refs:          25,954,761  ( 23,857,795 rd   +   2,096,966 wr)
+LL misses:         2,432,197  (  1,078,174 rd   +   1,354,023 wr)
+LL miss rate:            0.1% (        0.1%     +         0.6%  )
+
+Branches:        251,048,770  (231,594,100 cond +  19,454,670 ind)
+Mispredicts:      18,865,555  ( 18,421,734 cond +     443,821 ind)
+Mispred rate:            7.5% (        8.0%     +         2.3%   )

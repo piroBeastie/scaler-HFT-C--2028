@@ -1,0 +1,22 @@
+Implementation A (std::map + unordered_map)
+Operations: 1000000   Runs: 5   (median reported)
+
+  run 1: total   170.97 ms | add  148.9 ns | cancel  239.7 ns | bbo   35.7 ns | depth   119.1 ns
+  run 2: total   172.09 ms | add  153.3 ns | cancel  281.8 ns | bbo   36.1 ns | depth   122.9 ns
+  run 3: total   157.19 ms | add  149.8 ns | cancel  250.2 ns | bbo   35.9 ns | depth   119.8 ns
+  run 4: total   157.50 ms | add  152.6 ns | cancel  279.2 ns | bbo   36.6 ns | depth   119.6 ns
+  run 5: total   166.35 ms | add  153.8 ns | cancel  264.9 ns | bbo   37.0 ns | depth   122.3 ns
+
+Median of 5 runs
+  Total time        : 166.35 ms
+  ns / add_order    : 152.6
+  ns / cancel_order : 264.9
+  ns / get_bbo      : 36.1
+  ns / get_bids|asks(10): 119.8
+  (per-op numbers include ~15.4 ns of steady_clock overhead)
+
+Final BBO:
+  Bid: 99.99 x 1981
+  Ask: 100.01 x 2573
+
+Checksum: 16195615379729332828

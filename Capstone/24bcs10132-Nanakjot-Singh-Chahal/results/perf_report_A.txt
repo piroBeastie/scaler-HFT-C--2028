@@ -1,0 +1,18 @@
+    40.91%  [.] MapOrderBook::add_order(unsigned long, Side, double, long)
+    18.50%  [.] MapOrderBook::cancel_order(unsigned long)
+     9.80%  [.] __vdso_clock_gettime
+     6.15%  [.] int (anonymous namespace)::bench<MapOrderBook>(std::vector<Op, std::allocator<Op> > const&, int)
+     4.50%  [.] std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderInfo>, std::allocator<std::pair<unsigned long const, OrderInfo> >, std::__det
+     3.38%  [.] std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderInfo>, std::allocator<std::pair<unsigned long const, OrderInfo> >, std::__det
+     1.66%  [.] 0x00000000000a9bdd
+     1.17%  [.] std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderInfo>, std::allocator<std::pair<unsigned long const, OrderInfo> >, std::__det
+     1.11%  [.] 0x00000000000a9d41
+     0.87%  [.] llroundf32x
+     0.82%  [.] malloc
+     0.70%  [.] 0x00000000000a9ce6
+     0.58%  [.] cfree
+     0.53%  [.] std::chrono::_V2::steady_clock::now()
+     0.48%  [.] make_workload(unsigned long, unsigned int)
+     0.46%  [.] 0x000000000018984a
+     0.45%  [.] 0x00000000000a9be3
+     0.44%  [.] 0x00000000000ab300
