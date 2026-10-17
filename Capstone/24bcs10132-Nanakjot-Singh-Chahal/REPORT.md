@@ -18,13 +18,13 @@ each design is mostly the cost of its id lookup.
 
 | | fastest | why |
 |---|---|---|
-| add_order | B (115 ns), with C close (121 ns) | B inserts ids into a `std::map`. Ids increase monotonically, so every insert walks the same right-most path of the tree, which stays hot in cache. A pays for a `malloc`'d hash node plus occasional full rehashes (`_M_rehash` is 4.5% of A's samples). It also does a `std::map` descent over 5,000 levels with a random price at every add. |
-| cancel_order | **C (116 ns)**, vs A 265 ns and B 435 ns | Cancels pick a *random* live order, so every design takes at least one cache miss to find it. C takes about one miss: hash, then the slot holds tick/side/qty inline. A takes a bucket load and a node load (two dependent misses), then `std::map::find` over the levels. B does a ~19-level pointer chase through a 500k-node red-black tree, then `_Rb_tree_rebalance_for_erase` (6% of B's samples). |
-| get_bbo | a tie (36–41 ns, ~16 ns of which is the timer) | All three are O(1): `begin()`, heap `top()`, or a cached index. The best levels are always in L1. |
-| whole run | **C, 44 ms vs 159–166 ms (≈3.7×)** | C executes 2× fewer instructions than A, 3.5× fewer than B, and has 5–7× fewer L1 misses. |
+| add_order | C (116 ns), with B close (122 ns) | C writes one 32-byte slot into a flat table and bumps an array cell, with no allocation. B inserts ids into a `std::map`. Ids increase monotonically, so every insert walks the same right-most path of the tree, which stays hot in cache. A pays for a `malloc`'d hash node plus occasional full rehashes (`_M_rehash` is 4.5% of A's samples). It also does a `std::map` descent over 5,000 levels with a random price at every add. |
+| cancel_order | **C (114 ns)**, vs A 262 ns and B 442 ns | Cancels pick a *random* live order, so every design takes at least one cache miss to find it. C takes about one miss: hash, then the slot holds tick/side/qty inline. A takes a bucket load and a node load (two dependent misses), then `std::map::find` over the levels. B does a ~19-level pointer chase through a 500k-node red-black tree, then `_Rb_tree_rebalance_for_erase` (6% of B's samples). |
+| get_bbo | a tie (35–42 ns, ~16 ns of which is the timer) | All three are O(1): `begin()`, heap `top()`, or a cached index. The best levels are always in L1. |
+| whole run | **C, 42 ms vs 165–175 ms (≈4×)** | C executes 2× fewer instructions than A, 3.5× fewer than B, and has 5–7× fewer L1 misses. |
 
-The per-op timings show something interesting. C's *uninstrumented* run averages 44 ns
-per op, yet its timed add is 121 ns. `clock_gettime` acts as a barrier, so with timers in
+The per-op timings show something interesting. C's *uninstrumented* run averages 42 ns
+per op, yet its timed add is 116 ns. `clock_gettime` acts as a barrier, so with timers in
 place each op's cache miss is paid in full. Without timers the out-of-order core overlaps
 the miss of one op with the work of the next (memory-level parallelism). A and B gain less
 from this because their misses are *dependent*: a pointer chase can't start the next load
@@ -80,7 +80,7 @@ on every add and cancel (visible in their profiles), with no cap on latency.
 **I would deploy C** (with the improvements in 11.6). The decision isn't based on its mean
 alone:
 
-* **Latency:** best or tied-best on every operation, and ~3.7× faster end to end.
+* **Latency:** best or tied-best on every operation, and ~4× faster end to end.
 * **Predictability:** there is no allocation on the hot path (A and B `malloc` on every add
   and `free` on every cancel), no rehash pauses (A's `unordered_map` rehash copies every
   node at once), and no rebalancing. The worst case for finding a new best price is a

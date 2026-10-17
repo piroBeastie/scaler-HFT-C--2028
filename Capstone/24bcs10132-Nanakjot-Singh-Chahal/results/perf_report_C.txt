@@ -1,18 +1,15 @@
-    46.98%  [.] OrderMap::insert(unsigned long, OrderInfo const&)
-    21.94%  [.] __vdso_clock_gettime
-    13.50%  [.] ArrayOrderBook::cancel_order(unsigned long)
-    10.79%  [.] (anonymous namespace)::RunResult (anonymous namespace)::run_once<ArrayOrderBook>(std::vector<Op, std::allocator<Op> > const&)
-     1.90%  [.] llroundf32x
-     1.34%  [.] make_workload(unsigned long, unsigned int)
-     0.64%  [.] clock_gettime
-     0.53%  [.] std::chrono::_V2::steady_clock::now()
-     0.36%  [.] std::chrono::_V2::steady_clock::now()@plt
-     0.36%  [.] std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 1
-     0.31%  [.] llround@plt
-     0.25%  [.] clock_gettime@plt
-     0.22%  [.] int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 429
-     0.22%  [.] malloc
-     0.20%  [.] std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 1
-     0.14%  [.] long std::uniform_int_distribution<long>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4
-     0.06%  [.] std::vector<Level, std::allocator<Level> >::reserve(unsigned long)
-     0.03%  [.] operator delete(void*)
+    49.31%  [.] OrderMap::insert(unsigned long, OrderInfo const&)
+    19.91%  [.] __vdso_clock_gettime
+    14.16%  [.] ArrayOrderBook::cancel_order(unsigned long)
+    10.67%  [.] (anonymous namespace)::RunResult (anonymous namespace)::run_once<ArrayOrderBook>(std::vector<Op, std::allocator<Op> > c
+     1.40%  [.] llroundf32x
+     0.88%  [.] make_workload(unsigned long, unsigned int)
+     0.65%  [.] std::chrono::_V2::steady_clock::now()
+     0.57%  [.] llround@plt
+     0.49%  [.] std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640
+     0.47%  [.] clock_gettime
+     0.41%  [.] std::chrono::_V2::steady_clock::now()@plt
+     0.28%  [.] clock_gettime@plt
+     0.23%  [.] int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul
+     0.21%  [.] std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640
+     0.13%  [.] long std::uniform_int_distribution<long>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31

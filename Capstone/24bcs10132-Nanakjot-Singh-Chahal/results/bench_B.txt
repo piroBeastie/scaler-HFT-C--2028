@@ -1,18 +1,18 @@
 Implementation B (binary heap lazy-delete + std::map ids)
 Operations: 1000000   Runs: 5   (median reported)
 
-  run 1: total   195.36 ms | add  113.3 ns | cancel  443.5 ns | bbo   42.0 ns | depth   589.2 ns
-  run 2: total   159.89 ms | add  112.2 ns | cancel  443.1 ns | bbo   40.0 ns | depth   585.5 ns
-  run 3: total   158.75 ms | add  117.2 ns | cancel  434.5 ns | bbo   40.7 ns | depth   592.3 ns
-  run 4: total   157.25 ms | add  114.8 ns | cancel  404.4 ns | bbo   41.1 ns | depth   594.6 ns
-  run 5: total   148.39 ms | add  133.2 ns | cancel  422.7 ns | bbo   41.3 ns | depth   594.7 ns
+  run 1: total   191.16 ms | add  124.8 ns | cancel  505.8 ns | bbo   42.4 ns | depth   662.1 ns
+  run 2: total   181.67 ms | add  122.1 ns | cancel  503.2 ns | bbo   41.4 ns | depth   645.4 ns
+  run 3: total   174.61 ms | add  119.0 ns | cancel  441.6 ns | bbo   40.8 ns | depth   595.2 ns
+  run 4: total   163.82 ms | add  117.9 ns | cancel  422.6 ns | bbo   41.5 ns | depth   606.7 ns
+  run 5: total   154.97 ms | add  137.4 ns | cancel  442.1 ns | bbo   42.6 ns | depth   601.3 ns
 
 Median of 5 runs
-  Total time        : 158.75 ms
-  ns / add_order    : 114.8
-  ns / cancel_order : 434.5
-  ns / get_bbo      : 41.1
-  ns / get_bids|asks(10): 592.3
+  Total time        : 174.61 ms
+  ns / add_order    : 122.1
+  ns / cancel_order : 442.1
+  ns / get_bbo      : 41.5
+  ns / get_bids|asks(10): 606.7
   (per-op numbers include ~15.7 ns of steady_clock overhead)
 
 Final BBO:

@@ -126,17 +126,17 @@ Machine: Intel Core i9-14900HX, Ubuntu 24.04 under **WSL2**, g++ 13.3, `-O2`. Me
 
 | Metric | Implementation A | Implementation B | Implementation C |
 |---|---|---|---|
-| Total time (ms) | 166.35 | 158.75 | **44.01** |
-| ns / add | 152.6 | **114.8** | 121.3 |
-| ns / cancel | 264.9 | 434.5 | **115.9** |
-| ns / BBO | **36.1** | 41.1 | 37.2 |
-| ns / get_bids or get_asks(10) | 119.8 | 592.3 | **103.3** |
+| Total time (ms) | 164.71 | 174.61 | **41.89** |
+| ns / add | 154.4 | 122.1 | **116.2** |
+| ns / cancel | 262.1 | 442.1 | **113.5** |
+| ns / BBO | 36.2 | 41.5 | **35.1** |
+| ns / get_bids or get_asks(10) | 128.0 | 606.7 | **105.6** |
 | IPC | n/a in WSL2 | n/a in WSL2 | n/a in WSL2 |
 | Branch misses (%) ¹ | 7.5% (18.9 M) | 1.6% (18.0 M) | 3.1% (2.5 M) |
-| L1-dcache-load-misses ¹ | 23.9 M | 35.1 M | **4.9 M** |
+| L1-dcache-load-misses ¹ | 23.8 M | 35.1 M | **4.9 M** |
 | Cache misses (last level) ¹ | 2.43 M | 2.53 M | 3.31 M |
-| Page faults (perf stat, per process) | 16,341 | 16,873 | 90,868 |
-| task-clock (perf stat -r 5, whole process) | 1905.7 ms | 2007.1 ms | 944.0 ms |
+| Page faults (perf stat, per process) | 16,342 | 16,872 | 90,868 |
+| task-clock (perf stat -r 5, whole process) | 1924.3 ms | 2043.3 ms | 942.4 ms |
 | Instructions ¹ | 1.61 G | 2.80 G | 0.80 G |
 
 Per-op ns include about 16 ns of `steady_clock::now()` overhead (printed by the benchmark).
@@ -157,7 +157,7 @@ everything with real counters on a lab Linux machine.
 ```
  Performance counter stats for './bench --impl A' (5 runs):
 
-           1905.70 msec task-clock:u                     #    1.000 CPUs utilized               ( +-  2.07% )
+           1924.32 msec task-clock:u                     #    0.999 CPUs utilized               ( +-  1.25% )
    <not supported>      cycles:u
    <not supported>      instructions:u
    <not supported>      branches:u
@@ -165,11 +165,9 @@ everything with real counters on a lab Linux machine.
    <not supported>      cache-misses:u
    <not supported>      L1-dcache-load-misses:u
    <not supported>      dTLB-load-misses:u
-             16341      page-faults:u                    #    8.575 K/sec                       ( +-  0.00% )
-                 0      context-switches:u               #    0.000 /sec
-                 0      cpu-migrations:u                 #    0.000 /sec
+             16342      page-faults:u                    #    8.492 K/sec                       ( +-  0.00% )
 
-            1.9060 +- 0.0399 seconds time elapsed  ( +-  2.09% )
+            1.9262 +- 0.0240 seconds time elapsed  ( +-  1.25% )
 ```
 
 ### perf stat: Implementation B
@@ -177,7 +175,7 @@ everything with real counters on a lab Linux machine.
 ```
  Performance counter stats for './bench --impl B' (5 runs):
 
-           2007.06 msec task-clock:u                     #    0.999 CPUs utilized               ( +-  0.54% )
+           2043.26 msec task-clock:u                     #    0.999 CPUs utilized               ( +-  0.60% )
    <not supported>      cycles:u
    <not supported>      instructions:u
    <not supported>      branches:u
@@ -185,11 +183,9 @@ everything with real counters on a lab Linux machine.
    <not supported>      cache-misses:u
    <not supported>      L1-dcache-load-misses:u
    <not supported>      dTLB-load-misses:u
-             16873      page-faults:u                    #    8.407 K/sec                       ( +-  0.00% )
-                 0      context-switches:u               #    0.000 /sec
-                 0      cpu-migrations:u                 #    0.000 /sec
+             16872      page-faults:u                    #    8.257 K/sec                       ( +-  0.00% )
 
-            2.0082 +- 0.0111 seconds time elapsed  ( +-  0.55% )
+            2.0445 +- 0.0124 seconds time elapsed  ( +-  0.61% )
 ```
 
 ### perf stat: Implementation C
@@ -197,7 +193,7 @@ everything with real counters on a lab Linux machine.
 ```
  Performance counter stats for './bench --impl C' (5 runs):
 
-            943.97 msec task-clock:u                     #    0.999 CPUs utilized               ( +-  0.64% )
+            942.41 msec task-clock:u                     #    0.999 CPUs utilized               ( +-  0.63% )
    <not supported>      cycles:u
    <not supported>      instructions:u
    <not supported>      branches:u
@@ -205,13 +201,33 @@ everything with real counters on a lab Linux machine.
    <not supported>      cache-misses:u
    <not supported>      L1-dcache-load-misses:u
    <not supported>      dTLB-load-misses:u
-             90868      page-faults:u                    #   96.262 K/sec                       ( +-  0.00% )
-                 0      context-switches:u               #    0.000 /sec
-                 0      cpu-migrations:u                 #    0.000 /sec
+             90868      page-faults:u                    #   96.421 K/sec                       ( +-  0.00% )
 
-           0.94458 +- 0.00607 seconds time elapsed  ( +-  0.64% )
+           0.94296 +- 0.00589 seconds time elapsed  ( +-  0.62% )
 ```
 
 `perf record -g` (software `cpu-clock` sampling) hot spots are in
 `results/perf_report_{A,B,C}.txt`, and cachegrind summaries are in
 `results/cachegrind_{A,B,C}.txt`. They are discussed in [REPORT.md](REPORT.md).
+
+## Screenshots
+
+Every step was run in WSL2 (Ubuntu 24.04) on my laptop, and the terminal output was saved.
+The PNGs in `screenshots/` are drawn from that saved output, one per command, and the same
+text is in `results/`.
+
+| Step | Screenshot |
+|---|---|
+| Build + correctness test | ![](screenshots/01-build-verify.png) |
+| Benchmark A | ![](screenshots/02-A-bench.png) |
+| Benchmark B | ![](screenshots/03-B-bench.png) |
+| Benchmark C | ![](screenshots/04-C-bench.png) |
+| perf stat A | ![](screenshots/05-A-perf-stat.png) |
+| perf stat B | ![](screenshots/06-B-perf-stat.png) |
+| perf stat C | ![](screenshots/07-C-perf-stat.png) |
+| perf record/report A | ![](screenshots/08-A-perf-report.png) |
+| perf record/report B | ![](screenshots/09-B-perf-report.png) |
+| perf record/report C | ![](screenshots/10-C-perf-report.png) |
+| cachegrind A | ![](screenshots/11-A-cachegrind.png) |
+| cachegrind B | ![](screenshots/12-B-cachegrind.png) |
+| cachegrind C | ![](screenshots/13-C-cachegrind.png) |
